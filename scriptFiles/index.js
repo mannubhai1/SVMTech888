@@ -1,9 +1,20 @@
-fetch("./public/faculty_data.json")
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    const mentorList = document.getElementById("mentor-list");
+document.addEventListener("DOMContentLoaded", () => {
+  const mentorList = document.getElementById("mentor-list");
+
+  // Retrieve the username from localStorage
+  const username = localStorage.getItem("currentUsername");
+  if (!username) {
+    alert("Username is required to book slots!");
+    window.location.href = "login.html";
+    return; // Stop execution if no username is found
+  }
+
+  // Load booked slots from local storage for the specific user
+  const bookedSlotsKey = `bookedSlots_${username}`;
+  const bookedSlots = JSON.parse(localStorage.getItem(bookedSlotsKey)) || {};
+
+  // Function to render mentors and time slots
+  function renderMentors(data) {
     mentorList.innerHTML = "";
     data.forEach((mentor) => {
       const mentorCard = document.createElement("div");
@@ -16,7 +27,6 @@ fetch("./public/faculty_data.json")
       mentorImage.alt = `${mentor.Name}'s picture`;
       mentorImage.classList.add("mentor-image");
 
-      // Mentor Details
       const mentorName = document.createElement("h3");
       mentorTopDiv.appendChild(mentorName);
       mentorTopDiv.classList.add("mentor-top");
@@ -30,10 +40,7 @@ fetch("./public/faculty_data.json")
       mentorBottomDiv.appendChild(mentorExperience);
       const experienceText = `Experience: ${mentor.Qualifications} years`;
 
-      // Set the maximum length
       const maxLength = 80;
-
-      // Truncate the text if it exceeds the maximum length
       if (experienceText.length > maxLength) {
         const truncatedText = experienceText.slice(0, maxLength) + "...";
         mentorExperience.textContent = truncatedText;
@@ -69,15 +76,32 @@ fetch("./public/faculty_data.json")
         slotButton.textContent = slot;
         slotButton.dataset.slot = slot; // Store the slot info in a data attribute
 
+        // Unique key for each mentor-slot combination
+        const mentorSlotKey = `${mentor.Name}-${slot}`;
+
+        // Check if the slot is already booked by the user
+        if (bookedSlots[mentorSlotKey]) {
+          slotButton.classList.add("booked");
+          slotButton.style.backgroundColor = "grey";
+          slotButton.textContent = `${slot} (booked)`;
+        }
+
+        // Handle booking a slot
         slotButton.addEventListener("click", () => {
           if (slotButton.classList.contains("booked")) {
-            slotButton.classList.remove("booked");
-            slotButton.style.backgroundColor = "";
-            slotButton.textContent = slot;
+            alert("This slot is already booked.");
           } else {
+            // Mark as booked
             slotButton.classList.add("booked");
             slotButton.style.backgroundColor = "grey";
             slotButton.textContent = `${slot} (booked)`;
+
+            // Store the booking in local storage for the specific user
+            bookedSlots[mentorSlotKey] = true;
+            localStorage.setItem(bookedSlotsKey, JSON.stringify(bookedSlots));
+
+            // Send a reminder to the mentor
+            // sendMentorReminder(mentor.Name, slot);
           }
         });
 
@@ -88,7 +112,25 @@ fetch("./public/faculty_data.json")
       mentorCard.appendChild(mentorBottomDiv);
       mentorList.appendChild(mentorCard);
     });
-  })
-  .catch((error) => {
-    console.error("Error fetching the mentor data:", error);
-  });
+  }
+
+  // Fetch the mentor data
+  fetch("../public/faculty_data.json")
+    .then((response) => response.json())
+    .then((data) => {
+      renderMentors(data);
+    })
+    .catch((error) => {
+      console.error("Error fetching the mentor data:", error);
+    });
+
+  // Function to send a reminder to the mentor
+  function sendMentorReminder(mentorName, slot) {
+    console.log(`Reminder set for ${mentorName} for the slot ${slot}`);
+
+    // Simulate a reminder with a delay (for demo purposes)
+    setTimeout(() => {
+      alert(`Reminder: ${mentorName}, you have a session booked for ${slot}.`);
+    }, 5000); // Send reminder after 5 seconds (for demo purposes)
+  }
+});
