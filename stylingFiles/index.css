@@ -54,11 +54,19 @@ header p {
   margin: 10px;
 }
 
+.mentor-card h3 {
+  margin: 10px;
+}
+
+.mentor-card p {
+  margin: 10px;
+}
+
 .mentor-top {
   display: flex;
   flex-direction: row;
-  align-items: space-evenly;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .mentor-bottom {
@@ -76,14 +84,6 @@ header p {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-}
-
-.mentor-card h3 {
-  margin-bottom: 10px;
-}
-
-.mentor-card p {
-  margin-bottom: 15px;
 }
 
 /* Time Slots */

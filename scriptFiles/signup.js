@@ -16,7 +16,7 @@ document.getElementById("signupForm").addEventListener("submit", function (e) {
       // Store user credentials in localStorage
       localStorage.setItem(username, password);
       alert("Signup successful! You can now log in.");
-      window.location.href = "booking.html"; // Redirect to login page
+      window.location.href = "login.html"; // Redirect to login page
     }
   } else {
     alert("Please fill in both username and password fields.");

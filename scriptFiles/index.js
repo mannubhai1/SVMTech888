@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   const mentorList = document.getElementById("mentor-list");
 
+  // Maximum number of slots a user can book
+  const MAX_BOOKINGS = 3; // Change this value to your desired limit
+
   // Retrieve the username from localStorage
   const username = localStorage.getItem("currentUsername");
   if (!username) {
@@ -12,6 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Load booked slots from local storage for the specific user
   const bookedSlotsKey = `bookedSlots_${username}`;
   const bookedSlots = JSON.parse(localStorage.getItem(bookedSlotsKey)) || {};
+
+  // Function to count the total booked slots for the user
+  function countBookedSlots() {
+    return Object.keys(bookedSlots).length;
+  }
 
   // Function to render mentors and time slots
   function renderMentors(data) {
@@ -90,18 +98,23 @@ document.addEventListener("DOMContentLoaded", () => {
         slotButton.addEventListener("click", () => {
           if (slotButton.classList.contains("booked")) {
             alert("This slot is already booked.");
+          } else if (countBookedSlots() >= MAX_BOOKINGS) {
+            alert(`You can only book up to ${MAX_BOOKINGS} slots.`);
           } else {
-            // Mark as booked
-            slotButton.classList.add("booked");
-            slotButton.style.backgroundColor = "grey";
-            slotButton.textContent = `${slot} (booked)`;
+            // Confirmation dialog
+            const confirmBooking = confirm(
+              `Do you want to book the slot ${slot} with ${mentor.Name}?`
+            );
+            if (confirmBooking) {
+              // Mark as booked
+              slotButton.classList.add("booked");
+              slotButton.style.backgroundColor = "grey";
+              slotButton.textContent = `${slot} (booked)`;
 
-            // Store the booking in local storage for the specific user
-            bookedSlots[mentorSlotKey] = true;
-            localStorage.setItem(bookedSlotsKey, JSON.stringify(bookedSlots));
-
-            // Send a reminder to the mentor
-            // sendMentorReminder(mentor.Name, slot);
+              // Store the booking in local storage for the specific user
+              bookedSlots[mentorSlotKey] = true;
+              localStorage.setItem(bookedSlotsKey, JSON.stringify(bookedSlots));
+            }
           }
         });
 
@@ -123,14 +136,4 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch((error) => {
       console.error("Error fetching the mentor data:", error);
     });
-
-  // Function to send a reminder to the mentor
-  function sendMentorReminder(mentorName, slot) {
-    console.log(`Reminder set for ${mentorName} for the slot ${slot}`);
-
-    // Simulate a reminder with a delay (for demo purposes)
-    setTimeout(() => {
-      alert(`Reminder: ${mentorName}, you have a session booked for ${slot}.`);
-    }, 5000); // Send reminder after 5 seconds (for demo purposes)
-  }
 });
