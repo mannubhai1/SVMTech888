@@ -133,6 +133,32 @@ footer p {
   font-size: 1em;
 }
 
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0; /* Initially hidden */
+  pointer-events: none; /* Disable clicks initially */
+  z-index: 1000;
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
+}
+
+.scroll-to-top.visible {
+  opacity: 1; /* Fully visible */
+  pointer-events: auto; /* Enable clicks */
+}
+
+.scroll-to-top:hover {
+  background-color: #0056b3;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .mentor-list {

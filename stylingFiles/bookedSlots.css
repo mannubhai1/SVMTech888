@@ -24,6 +24,9 @@ body {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
@@ -41,7 +44,7 @@ body {
 
 .mentor-card h3 {
   margin: 10px 0;
-  font-size: 1.5em;
+  font-size: 1.3em;
   color: #333;
 }
 

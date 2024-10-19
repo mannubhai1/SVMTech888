@@ -1,4 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+  window.onscroll = function () {
+    if (
+      document.body.scrollTop > 20 ||
+      document.documentElement.scrollTop > 20
+    ) {
+      scrollToTopBtn.style.opacity = "1"; // Make button visible
+      scrollToTopBtn.style.pointerEvents = "auto"; // Enable button clicks
+    } else {
+      scrollToTopBtn.style.opacity = "0"; // Hide button
+      scrollToTopBtn.style.pointerEvents = "none"; // Disable button clicks
+    }
+  };
+
+  scrollToTopBtn.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
   const mentorList = document.getElementById("mentor-list");
 
   // Maximum number of unique mentors a user can book
