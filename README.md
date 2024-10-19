@@ -34,7 +34,7 @@ Before you begin, ensure you have the following installed:
 
 This project has the following directory structure:
 
-````
+```bash
 SVMTech888/
 ├── htmlFiles/
 │   ├── booking.html
@@ -64,40 +64,57 @@ SVMTech888/
 
 1. **Clone the Repository** (if applicable):
    If you haven't already cloned the project, you can do so using:
+
    ```bash
    git clone https://github.com/mannubhai1/SVMTech888
 
+   ```
+
 2. **Navigate to the Project Directory**:
-    You can use the `cd` command to move into the project directory:
-    ```bash
-    cd SVMTech888/htmlFiles
+   You can use the `cd` command to move into the project directory:
+
+   ```bash
+   cd SVMTech888/htmlFiles
+
+   ```
 
 3. **Open the Project Files**:
-    You can open the project files in a code editor like Visual Studio Code using:
-    ```bash
-    code .
+   You can open the project files in a code editor like Visual Studio Code using:
+
+   ```bash
+   code .
+
+   ```
 
 4. **Run the Project**:
-    You can run the project by opening the `singup.html` file in a web browser.
-
+   You can run the project by opening the `singup.html` file in a web browser.
 
 ## Usage
 
 ### User Registration
+
 - **Sign Up**: Navigate to the signup page to create a new account. Fill in the required details, and upon successful registration, you will be redirected to the login page.
 
 ### User Login
+
 - **Log In**: Use your credentials to log in via the login page. Successful login grants access to your dashboard, where you can manage your bookings.
 
 ### Booking Your Slots
+
 - **Book a Slot**: On the booking page, view the available slots for different mentors. Select a slot that works for you and confirm your booking. The system checks for existing bookings and prevents double bookings.
 
 ### Booking Constraints
+
 - **No Double Booking**: Each user can only book slots based on their own availability, ensuring fair access to mentors.
 
 ### Booked Slots
+
 - **View Booked Slots**: Go to the booked slots page to see all the slots you have reserved. You can cancel a booking if needed.
 
 ### FAQs
+
 - **Frequently Asked Questions**: Access the FAQs page for common queries regarding the application, booking process, and user support.
-````
+
+```
+
+```
