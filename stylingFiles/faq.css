@@ -1,0 +1,22 @@
+/* Basic styles for the FAQs page */
+.faq-list {
+  margin: 20px 0;
+}
+
+.faq-item {
+  background-color: #f9f9f9; /* Light background for each FAQ item */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 15px; /* Padding inside FAQ item */
+  margin-bottom: 10px; /* Space between FAQ items */
+}
+
+.faq-item h3 {
+  margin: 0; /* Remove margin from question header */
+  font-size: 1.2em; /* Slightly larger font size for questions */
+}
+
+.faq-item p {
+  margin: 5px 0 0; /* Space above and below the answer */
+  color: #555; /* Dark gray color for answers */
+}

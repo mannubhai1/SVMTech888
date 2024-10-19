@@ -1,27 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
   const mentorList = document.getElementById("mentor-list");
 
-  // Maximum number of slots a user can book
-  const MAX_BOOKINGS = 3; // Change this value to your desired limit
+  // Maximum number of unique mentors a user can book
+  const MAX_MENTORS = 3;
 
-  // Retrieve the username from localStorage
   const username = localStorage.getItem("currentUsername");
   if (!username) {
     alert("Username is required to book slots!");
     window.location.href = "login.html";
-    return; // Stop execution if no username is found
+    return;
   }
 
-  // Load booked slots from local storage for the specific user
   const bookedSlotsKey = `bookedSlots_${username}`;
   const bookedSlots = JSON.parse(localStorage.getItem(bookedSlotsKey)) || {};
 
-  // Function to count the total booked slots for the user
   function countBookedSlots() {
     return Object.keys(bookedSlots).length;
   }
 
-  // Function to render mentors and time slots
+  // Slot Collision Check
+  function hasCollision(selectedSlot) {
+    return Object.keys(bookedSlots).some((key) => {
+      return key.includes(selectedSlot);
+    });
+  }
+
+  // To check if the user has already booked a slot with the same mentor
+  function hasBookedSlotWithMentor(mentorName) {
+    return Object.keys(bookedSlots).some((key) => key.startsWith(mentorName));
+  }
+
   function renderMentors(data) {
     mentorList.innerHTML = "";
     data.forEach((mentor) => {
@@ -87,31 +95,35 @@ document.addEventListener("DOMContentLoaded", () => {
         // Unique key for each mentor-slot combination
         const mentorSlotKey = `${mentor.Name}-${slot}`;
 
-        // Check if the slot is already booked by the user
         if (bookedSlots[mentorSlotKey]) {
           slotButton.classList.add("booked");
           slotButton.style.backgroundColor = "grey";
           slotButton.textContent = `${slot} (booked)`;
         }
 
-        // Handle booking a slot
+        // Event listener to book a slot
         slotButton.addEventListener("click", () => {
           if (slotButton.classList.contains("booked")) {
             alert("This slot is already booked.");
-          } else if (countBookedSlots() >= MAX_BOOKINGS) {
-            alert(`You can only book up to ${MAX_BOOKINGS} slots.`);
+          } else if (countBookedSlots() >= MAX_MENTORS) {
+            alert(`You can only book up to ${MAX_MENTORS} different mentors.`);
+          } else if (hasCollision(slot)) {
+            alert(
+              `You already have a booking in the time frame: ${slot}. Please choose a different slot.`
+            );
+          } else if (hasBookedSlotWithMentor(mentor.Name)) {
+            alert(
+              `You can only book one slot with ${mentor.Name}. Please choose a different mentor.`
+            );
           } else {
-            // Confirmation dialog
             const confirmBooking = confirm(
               `Do you want to book the slot ${slot} with ${mentor.Name}?`
             );
             if (confirmBooking) {
-              // Mark as booked
               slotButton.classList.add("booked");
               slotButton.style.backgroundColor = "grey";
               slotButton.textContent = `${slot} (booked)`;
 
-              // Store the booking in local storage for the specific user
               bookedSlots[mentorSlotKey] = true;
               localStorage.setItem(bookedSlotsKey, JSON.stringify(bookedSlots));
             }
@@ -127,7 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Fetch the mentor data
   fetch("../public/faculty_data.json")
     .then((response) => response.json())
     .then((data) => {

@@ -1,0 +1,43 @@
+/* Basic styles for the navbar */
+.navbar {
+  background-color: #333; /* Dark background */
+  padding: 10px 0;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: center; /* Center the navbar items */
+}
+
+.navbar-list {
+  list-style-type: none; /* Remove default list styles */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  display: flex; /* Display list items in a row */
+}
+
+.navbar-list li {
+  margin: 0 15px; /* Space between the navbar items */
+}
+
+.navbar-list a {
+  color: white; /* Text color */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold; /* Make the text bold */
+}
+
+.navbar-list a:hover {
+  text-decoration: underline; /* Underline text on hover */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .navbar-list {
+    flex-direction: column; /* Stack items on smaller screens */
+    align-items: center; /* Center align items */
+  }
+
+  .navbar-list li {
+    margin: 10px 0; /* Space for stacked items */
+  }
+}

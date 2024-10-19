@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SLIET Mentorship Platform</title>
+    <title>Booked Slots - SLIET Mentorship Platform</title>
     <link rel="stylesheet" href="../stylingFiles/index.css" />
+    <link rel="stylesheet" href="../stylingFiles/bookedSlots.css" />
     <link rel="stylesheet" href="../stylingFiles/navbar.css" />
   </head>
   <body>
@@ -24,7 +25,7 @@
       <div class="container">
         <ul class="navbar-list">
           <li><a href="booking.html">Home</a></li>
-          <li><a href="bookedSlots.html">Booked Slots</a></li>
+          <li><a href="booked_slots.html">Booked Slots</a></li>
           <li><a href="faqs.html">FAQs</a></li>
         </ul>
       </div>
@@ -33,9 +34,9 @@
     <!-- Main Body Section -->
     <main>
       <div class="container">
-        <h2>Meet Our Mentors</h2>
-        <div id="mentor-list" class="mentor-list">
-          <!-- Mentor cards will be injected here from JSON data -->
+        <h2>Your Booked Slots</h2>
+        <div id="booked-slots-list" class="mentor-list">
+          <!-- Booked slots cards will be injected here from local storage -->
         </div>
       </div>
     </main>
@@ -47,6 +48,7 @@
       </div>
     </footer>
 
-    <script src="../scriptFiles/index.js"></script>
+    <script src="../scriptFiles/bookedSlots.js"></script>
+    <!-- Script to populate booked slots -->
   </body>
 </html>
