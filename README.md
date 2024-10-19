@@ -77,7 +77,7 @@ SVMTech888/
     code .
 
 4. **Run the Project**:
-    You can run the project by opening the `booking.html` file in a web browser.
+    You can run the project by opening the `singup.html` file in a web browser.
 
 
 ## Usage
